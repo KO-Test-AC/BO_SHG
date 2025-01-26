@@ -5,15 +5,15 @@ const cors = require('cors');  // Import cors
 const app = express();
 const port = 3000;
 
-// Use CORS
-app.use(cors());  // Allow requests from any origin
+// Use CORS to allow requests from any origin
+app.use(cors());
 
 // Set up MySQL connection
 const db = mysql.createConnection({
     host: 'localhost',  // Your MySQL server address
     user: 'root',       // Your MySQL username
     password: 'KENYAkelvin@28*',       // Your MySQL password
-    database: 'bo_databse'  // Your MySQL database name
+    database: 'bo_database'  // Your MySQL database name
 });
 
 // Connect to MySQL
@@ -23,6 +23,11 @@ db.connect((err) => {
         return;
     }
     console.log('Connected to MySQL database!');
+});
+
+// Root route (optional)
+app.get('/', (req, res) => {
+    res.send('Hello, welcome to the MySQL API!');
 });
 
 // API route to fetch data from the users table
