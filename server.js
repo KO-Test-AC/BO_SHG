@@ -19,7 +19,7 @@ db.connect((err) => {
 
 // API endpoint to fetch data from MySQL
 app.get('/data', (req, res) => {
-  db.query('SELECT * FROM your_table_name', (err, result) => {
+  db.query('SELECT * FROM boshg_main', (err, result) => {
     if (err) throw err;
     res.json(result);  // Return the result as JSON
   });
