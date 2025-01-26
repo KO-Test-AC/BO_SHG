@@ -1,11 +1,11 @@
 const express = require('express');
 const mysql = require('mysql2');
-const cors = require('cors');  // Import cors
+const cors = require('cors');  // Import CORS
 
 const app = express();
 const port = 3000;
 
-// Use CORS to allow requests from any origin
+// Use CORS to allow requests from any origin (or specify a domain if needed)
 app.use(cors());
 
 // Set up MySQL connection
@@ -38,7 +38,8 @@ app.get('/data', (req, res) => {
             res.status(500).send('Database query failed');
             return;
         }
-        res.json(result);  // Send the result as JSON
+        console.log('Data fetched from MySQL:', result);  // Log the data to the terminal
+        res.json(result);  // Send the result as JSON to the frontend
     });
 });
 
