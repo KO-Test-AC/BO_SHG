@@ -1,21 +1,22 @@
 const express = require('express');
 const mysql = require('mysql2');
-const cors = require('cors');  // Add this line
+const cors = require('cors');  // Import cors
 
 const app = express();
 const port = 3000;
 
-// Enable CORS
+// Use CORS
 app.use(cors());  // Allow requests from any origin
 
 // Set up MySQL connection
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',  // Your MySQL password
-    database: 'my_database'  // Your MySQL database name
+    host: 'localhost',  // Your MySQL server address
+    user: 'root',       // Your MySQL username
+    password: 'KENYAkelvin@28*',       // Your MySQL password
+    database: 'bo_databse'  // Your MySQL database name
 });
 
+// Connect to MySQL
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to MySQL:', err);
@@ -26,7 +27,7 @@ db.connect((err) => {
 
 // API route to fetch data from the users table
 app.get('/data', (req, res) => {
-    db.query('SELECT * FROM users', (err, result) => {
+    db.query('SELECT * FROM boshg_main', (err, result) => {
         if (err) {
             console.error('Error querying MySQL:', err);
             res.status(500).send('Database query failed');
