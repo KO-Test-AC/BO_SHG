@@ -3,32 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access MySQL Data</title>
+    <title>Data from MySQL</title>
 </head>
 <body>
     <header>
         <h1>Data from MySQL</h1>
     </header>
     <main>
-        <div id="data-container">
-            <p>Loading data...</p>
-        </div>
+        <ul id="data-list">
+            <!-- Data will be inserted here -->
+        </ul>
     </main>
 
     <script>
-        // Fetch data from the Node.js backend
-        fetch('http://localhost:3000/data')  // This URL points to your backend server
-            .then(response => response.json())
+        // Fetch the data from the backend
+        fetch('http://localhost:3000/data')  // Ensure the correct URL (use your backend URL if it's deployed elsewhere)
+            .then(response => response.json())  // Parse the response as JSON
             .then(data => {
-                const dataContainer = document.getElementById('data-container');
-                // Display data in a list
-                dataContainer.innerHTML = '<ul>' + data.map(item => 
-                    `<li>${item.name} (${item.email})</li>`
-                ).join('') + '</ul>';
+                console.log('Fetched Data:', data);  // Log the fetched data to the console
+
+                // Check if data is valid
+                if (data && Array.isArray(data)) {
+                    // Loop through each item in the data and append it to the list
+                    const list = document.getElementById('data-list');
+                    data.forEach(item => {
+                        const listItem = document.createElement('li');
+                        listItem.textContent = `${item.name} (${item.email})`;  // Adjust based on your data structure
+                        list.appendChild(listItem);
+                    });
+                } else {
+                    console.error('Data format is incorrect:', data);
+                }
             })
             .catch(error => {
-                console.error('Error fetching data:', error);
-                document.getElementById('data-container').innerHTML = 'Error loading data.';
+                console.error('Error loading data:', error);
+                document.getElementById('data-list').innerHTML = '<li>Error loading data</li>';
             });
     </script>
 </body>
